@@ -1,3 +1,3 @@
 #pragma once
 
-#define ASSETS_PATH "C:/Projects/pong/src/assets/"
+#define ASSETS_PATH "/home/davide/Projects/pong/build/assets/"
