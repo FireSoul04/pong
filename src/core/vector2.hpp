@@ -10,6 +10,8 @@ public:
 public:
     const double norm() const;
     void normalize();
+    void rotate(const double angle);
+    void rotateDegrees(const double angle);
 
     static const Vector2 zero();
     static const Vector2 i();

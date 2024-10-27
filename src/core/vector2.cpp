@@ -12,6 +12,17 @@ void Vector2::normalize() {
     }
 }
 
+void Vector2::rotate(const double angle) {
+    const double cosa = cos(angle);
+    const double sina = sin(angle);
+    x = x * cosa - y * sina;
+    y = x * sina + y * cosa;
+}
+
+void Vector2::rotateDegrees(const double angle) {
+    rotate(angle * 180.0 / M_PI);
+}
+
 const Vector2 Vector2::zero() {
     return { 0.0, 0.0 };
 }
