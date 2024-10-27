@@ -1,4 +1,4 @@
 /.vscode
 /build
 
-src/onfig.h
+/src/config.h
