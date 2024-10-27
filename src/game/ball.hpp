@@ -1,12 +1,15 @@
 #pragma once
 
 #include <SDL.h>
+#include <chrono>
 
 #include "entity.hpp"
 #include "../core/game.hpp"
 #include "../core/vector2.hpp"
 #include "../core/random.hpp"
 #include "../render/sprite.hpp"
+
+using namespace std::chrono;
 
 class Ball : public Entity {
 public:
@@ -19,5 +22,7 @@ public:
     const Vector2 randomDirection();
 
 private:
-    Vector2 m_StartPosition;
+    time_point<system_clock> m_RespawnTimer;
+    Vector2                  m_StartPosition;
+    bool                     m_Reset = false;
 };

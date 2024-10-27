@@ -5,7 +5,7 @@
 Ball::Ball(const Vector2& position, const Vector2& velocity, const double speed, const Sprite& sprite)
     : Entity(position, velocity, speed, sprite), m_StartPosition(position) {
 
-    this->velocity = randomDirection();
+    resetPosition();
 }
 
 void Ball::bounce(const Vector2& direction) {
@@ -15,14 +15,20 @@ void Ball::bounce(const Vector2& direction) {
 void Ball::resetPosition() {
     velocity = randomDirection();
     m_Position = m_StartPosition;
+    m_RespawnTimer = system_clock::now();
+    m_Reset = true;
 }
 
 void Ball::update(double deltaTime) {
     Vector2 spriteOffset = { sprite->w / 2.0, sprite->h / 2.0 };
+    auto timeElapsed = system_clock::now() - m_RespawnTimer;
 
-    m_Position += velocity * m_Speed * deltaTime;
+    if (!m_Reset) {
+        m_Position += velocity * m_Speed * deltaTime;
+    } else if (timeElapsed > 0s) {
+        m_Reset = false;
+    }
 
-    // This should handle score
     if (x() < spriteOffset.x) {
         resetPosition();
         Pong::addAIScore();
@@ -43,7 +49,8 @@ void Ball::update(double deltaTime) {
 }
 
 const Vector2 Ball::randomDirection() {
-    Vector2 direction = { Random::generateDouble(-1.0, 1.0), 0.4 * Random::generateDouble(-1.0, 1.0) };
+    int sign = 2 * Random::generate(0, 1) - 1;
+    Vector2 direction = { sign * Random::generateDouble(0.5, 1.0), Random::generateDouble(-1.0, 1.0) };
     direction.normalize();
     return direction;
 }
