@@ -15,6 +15,6 @@ private:
     Random();
 
 private:
-    static uint64_t                               m_Seed;
-    static std::default_random_engine             m_Generator;
+    static uint64_t                   m_Seed;
+    static std::default_random_engine m_Generator;
 };

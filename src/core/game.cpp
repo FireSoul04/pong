@@ -8,7 +8,7 @@ unsigned int Game::s_Width = 0;
 unsigned int Game::s_Height = 0;
 
 Game::Game(const std::string& gameTitle, unsigned int width, unsigned int height)
-    : m_GameTitle(gameTitle), m_MaxUpdates(60) {
+    : m_GameTitle(gameTitle) {
     
     s_Width = width;
     s_Height = height;
@@ -42,8 +42,8 @@ void Game::run() {
     unsigned int frames = 0;
     double deltaTime = 0.0;
 
-    time_point<system_clock> lastFrame = system_clock::now();
-    time_point<system_clock> timer = system_clock::now();
+    auto lastFrame = system_clock::now();
+    auto timer = system_clock::now();
 
     const double ns = 1.0E9 / m_MaxUpdates;
 
@@ -60,7 +60,7 @@ void Game::run() {
         pong.draw(renderer);
         frames++;
 
-        if (duration_cast<milliseconds>(system_clock::now() - timer).count() > CLOCKS_PER_SEC) {
+        if (system_clock::now() - timer > 1s) {
             timer = system_clock::now();
             SDL_SetWindowTitle(s_Window, std::string(m_GameTitle + " | " + std::to_string(updates) + " ups, " + std::to_string(frames) + " fps").c_str());
             updates = 0;

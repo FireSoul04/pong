@@ -50,5 +50,5 @@ private:
     static unsigned int s_Height;
 
     const std::string   m_GameTitle;
-    unsigned int        m_MaxUpdates;
+    unsigned int        m_MaxUpdates = 60;
 };
